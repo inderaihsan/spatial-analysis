@@ -4,6 +4,7 @@ from rest_framework.response import Response
 import pandas as pd
 import numpy as np
 import json
+
 # Create your views here.
 
 @api_view(['GET'])
@@ -47,3 +48,4 @@ def read_data(request) :
 
 
     
+
