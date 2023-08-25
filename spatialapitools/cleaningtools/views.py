@@ -3,7 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import pandas as pd
 import numpy as np
-import json
+import json 
+import geopandas
 
 # Create your views here.
 
@@ -38,13 +39,27 @@ def read_data(request) :
     categorical_data = categorical_data.columns.to_list()
     df = df.to_json(orient='records') 
     df = json.loads(df) 
-    
     respon_data = {
         'data' : df, 
         'numerical' : numeric_data,
         'categorical_data' : categorical_data
     }
-    return Response(respon_data) 
+    return Response(respon_data)  
+
+@api_view(['POST']) 
+def filter_radius(request) : 
+    #read -> data uwis 
+    #ubah jadi geopandas -> uwis 
+    #ubah crs -> 32749 uwis 
+    #nangkep request dari postman -> koordinat 
+    # longitude = request.data['longitude']
+    # latitude = request.data['latitude']
+    # #nangkep request dari postman -> radius 
+    # radius = request.data['radius']
+    #ngitung jarak dari radius ke file geopandas 
+    #filter jaraknya sesuai radius -> 
+    #return 
+    return Response({'data' : 'radius filter'})
 
 
     
