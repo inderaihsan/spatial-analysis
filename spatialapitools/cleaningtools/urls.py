@@ -5,7 +5,7 @@ urlpatterns = [
     path('init', views.init, name = 'init' ),
     path('luassegitiga', views.luas_segitiga, name = 'init' ),
     path('reading', views.read_data, name = 'readdata' ),
-    path('radius', views.filter_radius, name = 'readdata' ),
+    path('radius', views.radius_filter, name = 'readdata' ),
 ]
 
 

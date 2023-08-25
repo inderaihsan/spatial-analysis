@@ -63,19 +63,21 @@ def radius_filter(request) :
     df = pd.read_excel(file)
     geometry = gpd.points_from_xy(df['longitude'], df['latitude'])
     data = gpd.GeoDataFrame(df, geometry =geometry)
-    data.set_crs(epsg = 32749, inplace = True)
+    data.set_crs(epsg = 4326, inplace = True)
     data.to_crs(epsg = 32749, inplace = True)
-    latitue = request.data['latitude']
-    longtitude = request.data ['longitude']
-    radius = float (request.data ['radius'])
-    geometry = [Point(longtitude, latitue)]
-    gdf = gpd.GeoDataFrame(geometry=geometry, crs="EPSG:4326")
-    recreate = gdf.to_crs("EPSG:32749")
+    latitude = float(request.data['latitude'])
+    longtitude = float(request.data ['longitude'])
+    radius = float (request.data['radius'])
+    geometry = [Point(latitude,longtitude)]
+    recreate = gpd.GeoDataFrame(geometry=geometry) 
+    recreate.set_crs(epsg = 4326, inplace = True)
+    recreate.to_crs(epsg = 32749, inplace = True)
+    print(recreate.crs == data.crs)
     jarak = recreate.geometry.sindex.nearest(data.geometry, return_all = True, return_distance = True)[1]
     data['jarak'] = jarak
     filter_data = data[data['jarak']<= radius]
     tempe = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
-    data.to_excel(tempe.name, index=False)
+    filter_data.to_excel(tempe.name, index=False)
     tempe.close()
 
         # Read the Excel data back for response
