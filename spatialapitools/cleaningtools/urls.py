@@ -7,3 +7,5 @@ urlpatterns = [
     path('reading', views.read_data, name = 'readdata' ),
     path('radius', views.filter_radius, name = 'readdata' ),
 ]
+
+
